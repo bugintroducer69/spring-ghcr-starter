@@ -21,5 +21,13 @@ jobs:
         with:
           java-version: '25'
           distribution: 'temurin'
+
+      - name: Cache dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.m2/repository/
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.cml') }}
+          restore-keys: ${{ runner.os }}-maven-
+
       - name: Tests 
         run: mvn -B test
